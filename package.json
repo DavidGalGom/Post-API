@@ -7,7 +7,8 @@
   "scripts": {
     "start": "node dist/index.js",
     "start-dev": "nodemon -q .",
-    "test": "jest --watchAll",
+    "test": "npx jest",
+    "test-w": "jest --watchAll",
     "test-cov": "jest --watchAll --collect-coverage",
     "build": "tsc"
   },
@@ -28,8 +29,10 @@
     "@typescript-eslint/parser": "^5.10.0",
     "eslint": "^8.7.0",
     "eslint-config-airbnb-base": "^15.0.0",
+    "eslint-config-airbnb-typescript": "^16.0.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-import": "^2.25.4",
+    "husky": "^7.0.4",
     "jest": "^27.4.7",
     "nodemon": "^2.0.15",
     "tslint": "^6.1.3",
