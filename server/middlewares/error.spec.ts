@@ -36,4 +36,17 @@ describe("Given a general error handler", () => {
       expect(res.json).toHaveBeenCalledWith({ error: "Fatal error" });
     });
   });
+
+  describe("When it receives a ValidationError", () => {
+    test("Then it should return an error with code 400 and a Validation error message", () => {
+      const res = mockResponse();
+      const error = new Error("Validation error") as IError;
+      error.statusCode = 400;
+
+      generalErrorHandler(error, null, res, null);
+
+      expect(res.status).toHaveBeenCalledWith(error.statusCode);
+      expect(res.json).toHaveBeenCalledWith({ error: error.message });
+    });
+  });
 });
