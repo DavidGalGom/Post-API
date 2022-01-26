@@ -4,6 +4,7 @@ import cors from "cors";
 import morgan from "morgan";
 import Debug from "debug";
 import IError from "../interfaces/error";
+import { generalErrorHandler, notFoundErrorHandler } from "./middlewares/error";
 
 const debug = Debug("posts:server");
 
@@ -32,3 +33,5 @@ export const initializeServer = (port) =>
 app.use(morgan("dev"));
 app.use(cors());
 app.use(express.json());
+app.use(notFoundErrorHandler);
+app.use(generalErrorHandler);
