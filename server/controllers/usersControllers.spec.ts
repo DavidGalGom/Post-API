@@ -1,6 +1,6 @@
 import bcrypt from "bcrypt";
 import User from "../../database/models/user";
-import addUser from "./usersControllers";
+import { addUser } from "./usersControllers";
 import IResponseTest from "../../interfaces/response";
 import TestError from "../../interfaces/testError";
 
