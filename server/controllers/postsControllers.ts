@@ -14,7 +14,7 @@ export const getPostsList = async (req, res, next) => {
 export const addPost = async (req, res, next) => {
   try {
     const post = req.body;
-    const newPost = await Post.create({ post });
+    const newPost = await Post.create(post);
     res.status(201).json(newPost);
   } catch (error) {
     error.code = 400;
