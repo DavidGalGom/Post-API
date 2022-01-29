@@ -27,15 +27,24 @@ export const addPost = async (req, res, next) => {
 };
 
 export const deletePost = async (req, res, next) => {
-  const { idPost } = req.params;
+  const { idPost, idOwner } = req.params;
+  const { userId } = req.body;
   try {
-    const deletedPost = await Post.findByIdAndDelete(idPost);
-    if (deletedPost) {
-      res.json({ id: deletedPost.id });
+    if (userId === idOwner) {
+      const deletedPost = await Post.findByIdAndDelete(idPost);
+      if (deletedPost) {
+        res.json({ id: deletedPost.id });
+      } else {
+        const error: { message: string; code: number } = {
+          message: "Post not found",
+          code: 404,
+        };
+        next(error);
+      }
     } else {
       const error: { message: string; code: number } = {
-        message: "Post not found",
-        code: 404,
+        message: "Can't delete other people posts",
+        code: 401,
       };
       next(error);
     }
