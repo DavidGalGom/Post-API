@@ -1,4 +1,4 @@
-import { Schema, model } from "mongoose";
+import { Schema, model, Types } from "mongoose";
 
 const postSchema = new Schema({
   title: {
@@ -7,6 +7,11 @@ const postSchema = new Schema({
   },
   body: {
     type: String,
+    required: true,
+  },
+  owner: {
+    type: Types.ObjectId,
+    ref: "User",
     required: true,
   },
 });
