@@ -42,3 +42,26 @@ export const deletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const updatePost = async (req, res, next) => {
+  const post = req.body;
+  const { idPost } = req.params;
+  try {
+    const updatedPost = await Post.findByIdAndUpdate(idPost, post, {
+      new: true,
+    });
+    if (updatedPost) {
+      res.json(updatedPost);
+    } else {
+      const error: { message: string; code: number } = {
+        message: "Post not found",
+        code: 404,
+      };
+      next(error);
+    }
+  } catch (error) {
+    error.code = 400;
+    error.message = "Bad update request";
+    next(error);
+  }
+};
