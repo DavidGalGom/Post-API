@@ -1,6 +1,11 @@
 import Post from "../../database/models/post";
 import TestError from "../../interfaces/testError";
-import { addPost, deletePost, getPostsList } from "./postsControllers";
+import {
+  addPost,
+  deletePost,
+  getPostsList,
+  updatePost,
+} from "./postsControllers";
 import IResponseTest from "../../interfaces/response";
 
 jest.mock("../../database/models/post");
@@ -148,6 +153,71 @@ describe("Given a deletePost function", () => {
       expect(next).toHaveBeenCalledWith(error);
       expect(next.mock.calls[0][0]).toHaveProperty("message", "Post not found");
       expect(next.mock.calls[0][0]).toHaveProperty("code", 404);
+    });
+  });
+});
+
+describe("Given a updatePost function", () => {
+  describe("When it receives a wrong request", () => {
+    test("Then it should return an error code 400 and message Bad update request", async () => {
+      const idPost: number = 123456789;
+      const req = {
+        params: {
+          idPost,
+        },
+      };
+      const next = jest.fn();
+      const error: { code: number; message: string } = {
+        code: 400,
+        message: "Bad update request",
+      };
+      Post.findByIdAndUpdate = jest.fn().mockRejectedValue(error);
+
+      await updatePost(req, null, next);
+
+      expect(next).toHaveBeenCalled();
+      expect(next.mock.calls[0][0]).toHaveProperty("message", error.message);
+      expect(next.mock.calls[0][0]).toHaveProperty("code", error.code);
+    });
+  });
+
+  describe("When it receives a wrong id", () => {
+    test("Then it should return an error code 404 and message Post not found", async () => {
+      const idPost: number = 1;
+      const req = {
+        params: {
+          idPost,
+        },
+      };
+      const next = jest.fn();
+      const error: { code: number; message: string } = {
+        code: 404,
+        message: "Post not found",
+      };
+      Post.findByIdAndUpdate = jest.fn().mockResolvedValue(null);
+
+      await updatePost(req, null, next);
+
+      expect(next).toHaveBeenCalled();
+      expect(next.mock.calls[0][0]).toHaveProperty("message", error.message);
+      expect(next.mock.calls[0][0]).toHaveProperty("code", error.code);
+    });
+  });
+
+  describe("When it receives an id and a correct params body", () => {
+    test("Then it should update the post with the new data", async () => {
+      const idPost: number = 123456789;
+      const req = {
+        params: {
+          idPost,
+        },
+      };
+      const res = mockResponse();
+      Post.findByIdAndUpdate = jest.fn().mockResolvedValue(idPost);
+
+      await updatePost(req, res, null);
+
+      expect(res.json).toHaveBeenCalledWith(idPost);
     });
   });
 });
