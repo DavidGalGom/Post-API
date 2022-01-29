@@ -57,17 +57,26 @@ export const deletePost = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   const post = req.body;
-  const { idPost } = req.params;
+  const { idPost, idOwner } = req.params;
+  const { owner } = req.body;
   try {
-    const updatedPost = await Post.findByIdAndUpdate(idPost, post, {
-      new: true,
-    });
-    if (updatedPost) {
-      res.json(updatedPost);
+    if (idOwner === owner) {
+      const updatedPost = await Post.findByIdAndUpdate(idPost, post, {
+        new: true,
+      });
+      if (updatedPost) {
+        res.json(updatedPost);
+      } else {
+        const error: { message: string; code: number } = {
+          message: "Post not found",
+          code: 404,
+        };
+        next(error);
+      }
     } else {
       const error: { message: string; code: number } = {
-        message: "Post not found",
-        code: 404,
+        message: "Can't update other people posts",
+        code: 401,
       };
       next(error);
     }

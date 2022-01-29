@@ -13,6 +13,6 @@ const router = express.Router();
 router.get("/", getPostsList);
 router.post("/", auth, addPost);
 router.delete("/:idPost/:idOwner", auth, deletePost);
-router.put("/:idPost", auth, updatePost);
+router.put("/:idPost/:idOwner", auth, updatePost);
 
 export default router;
