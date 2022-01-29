@@ -1,6 +1,6 @@
 import Post from "../../database/models/post";
 
-const getPostsList = async (req, res, next) => {
+export const getPostsList = async (req, res, next) => {
   try {
     const posts = await Post.find();
     res.json(posts);
@@ -11,4 +11,14 @@ const getPostsList = async (req, res, next) => {
   }
 };
 
-export default getPostsList;
+export const addPost = async (req, res, next) => {
+  try {
+    const post = req.body;
+    const newPost = await Post.create({ post });
+    res.status(201).json(newPost);
+  } catch (error) {
+    error.code = 400;
+    error.message = "Bad request";
+    next(error);
+  }
+};

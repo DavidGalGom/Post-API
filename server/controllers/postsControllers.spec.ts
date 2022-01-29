@@ -1,6 +1,6 @@
 import Post from "../../database/models/post";
 import TestError from "../../interfaces/testError";
-import getPostsList from "./postsControllers";
+import { getPostsList } from "./postsControllers";
 
 jest.mock("../../database/models/post");
 
