@@ -173,6 +173,41 @@ describe("Given a deletePost function", () => {
       expect(next.mock.calls[0][0]).toHaveProperty("code", 404);
     });
   });
+
+  describe("When the userId and the ownerId are not the same", () => {
+    test("Then next it should be called with a code 401 and a message Can't delete other people posts", async () => {
+      const idPost = 12345;
+      const idOwner = 12;
+      const userId = 1;
+      const req: {
+        params: { idPost: number; idOwner: number };
+        body: { userId: number };
+      } = {
+        params: {
+          idPost,
+          idOwner,
+        },
+        body: {
+          userId,
+        },
+      };
+      const next = jest.fn();
+      Post.findByIdAndDelete = jest.fn().mockResolvedValue(idPost);
+      const error: { message: string; code: number } = {
+        message: "Can't delete other people posts",
+        code: 401,
+      };
+
+      await deletePost(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+      expect(next.mock.calls[0][0]).toHaveProperty(
+        "message",
+        "Can't delete other people posts"
+      );
+      expect(next.mock.calls[0][0]).toHaveProperty("code", 401);
+    });
+  });
 });
 
 describe("Given a updatePost function", () => {
