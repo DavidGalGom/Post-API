@@ -2,7 +2,10 @@ import Post from "../../database/models/post";
 
 export const getPostsList = async (req, res, next) => {
   try {
-    const posts = await Post.find();
+    const posts = await Post.find().populate({
+      path: "owner",
+      select: "userName",
+    });
     res.json(posts);
   } catch (error) {
     error.message = "Can't find the posts";
@@ -24,15 +27,24 @@ export const addPost = async (req, res, next) => {
 };
 
 export const deletePost = async (req, res, next) => {
-  const { idPost } = req.params;
+  const { idPost, idOwner } = req.params;
+  const { userId } = req.body;
   try {
-    const deletedPost = await Post.findByIdAndDelete(idPost);
-    if (deletedPost) {
-      res.json({ id: deletedPost.id });
+    if (userId === idOwner) {
+      const deletedPost = await Post.findByIdAndDelete(idPost);
+      if (deletedPost) {
+        res.json({ id: deletedPost.id });
+      } else {
+        const error: { message: string; code: number } = {
+          message: "Post not found",
+          code: 404,
+        };
+        next(error);
+      }
     } else {
       const error: { message: string; code: number } = {
-        message: "Post not found",
-        code: 404,
+        message: "Can't delete other people posts",
+        code: 401,
       };
       next(error);
     }
@@ -45,17 +57,26 @@ export const deletePost = async (req, res, next) => {
 
 export const updatePost = async (req, res, next) => {
   const post = req.body;
-  const { idPost } = req.params;
+  const { idPost, idOwner } = req.params;
+  const { owner } = req.body;
   try {
-    const updatedPost = await Post.findByIdAndUpdate(idPost, post, {
-      new: true,
-    });
-    if (updatedPost) {
-      res.json(updatedPost);
+    if (idOwner === owner) {
+      const updatedPost = await Post.findByIdAndUpdate(idPost, post, {
+        new: true,
+      });
+      if (updatedPost) {
+        res.json(updatedPost);
+      } else {
+        const error: { message: string; code: number } = {
+          message: "Post not found",
+          code: 404,
+        };
+        next(error);
+      }
     } else {
       const error: { message: string; code: number } = {
-        message: "Post not found",
-        code: 404,
+        message: "Can't update other people posts",
+        code: 401,
       };
       next(error);
     }

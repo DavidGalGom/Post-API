@@ -58,7 +58,11 @@ export const loginUser = async (req, res, next) => {
           expiresIn: 24 * 60 * 60,
         }
       );
-      res.json({ token });
+      const loginToken: { ownerId: String; ownerToken: string } = {
+        ownerId: user.id,
+        ownerToken: token,
+      };
+      res.json(loginToken);
     }
   }
 };

@@ -98,12 +98,14 @@ describe("Given a loginUser function", () => {
       const user = {
         userName: "DavidGG",
         password: "*****",
+        id: "12345",
       };
       const req = {
         body: user,
       };
       const expectedToken = {
-        token: "Token",
+        ownerId: "12345",
+        ownerToken: "Token",
       };
       const res = {
         json: jest.fn(),
