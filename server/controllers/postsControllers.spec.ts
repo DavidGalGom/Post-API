@@ -30,7 +30,9 @@ describe("Given a getPostsList function", () => {
           body: "body of the sample post for testing 2",
         },
       ];
-      Post.find = jest.fn().mockResolvedValue(posts);
+      Post.find = jest
+        .fn()
+        .mockReturnValue({ populate: jest.fn().mockResolvedValue(posts) });
       const res = {
         json: jest.fn(),
       };
@@ -95,12 +97,18 @@ describe("Given an addPost function", () => {
 });
 
 describe("Given a deletePost function", () => {
-  describe("When it receives an id of a post", () => {
+  describe("When it receives an id of a post and a correct idOwner", () => {
     test("Then it should summon the res.json with the id", async () => {
       const idPost: number = 123456789;
+      const idOwner: number = 12345;
+      const userId: number = 12345;
       const req = {
         params: {
           idPost,
+          idOwner,
+        },
+        body: {
+          userId,
         },
       };
       const res = { json: jest.fn() };
@@ -117,9 +125,16 @@ describe("Given a deletePost function", () => {
       const error = new Error("Bad delete request") as TestError;
       error.code = 400;
       Post.findByIdAndDelete = jest.fn().mockRejectedValue(error);
+      const userId: number = 1;
+      const idPost: number = 123456789;
+      const idOwner: number = 1;
       const req = {
         params: {
-          idComponent: 1,
+          idPost,
+          idOwner,
+        },
+        body: {
+          userId,
         },
       };
       const next = jest.fn();
@@ -139,11 +154,14 @@ describe("Given a deletePost function", () => {
         message: "Post not found",
         code: 404,
       };
-
       Post.findByIdAndDelete = jest.fn().mockResolvedValue(null);
       const req = {
         params: {
-          idComponent: 123456789,
+          idPost: 12345678,
+          idOwner: 12345,
+        },
+        body: {
+          userId: 12345,
         },
       };
       const next = jest.fn();
