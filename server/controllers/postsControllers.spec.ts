@@ -291,4 +291,39 @@ describe("Given a updatePost function", () => {
       expect(res.json).toHaveBeenCalledWith(idPost);
     });
   });
+
+  describe("When the owner and the ownerId are not the same", () => {
+    test("Then next it should be called with a code 401 and a message Can't update other people posts", async () => {
+      const idPost: number = 12345;
+      const idOwner: number = 12;
+      const owner: number = 1;
+      const req: {
+        params: { idPost; idOwner };
+        body: { owner };
+      } = {
+        params: {
+          idPost,
+          idOwner,
+        },
+        body: {
+          owner,
+        },
+      };
+      const next = jest.fn();
+      Post.findByIdAndUpdate = jest.fn().mockResolvedValue(idPost);
+      const error: { message: string; code: number } = {
+        message: "Can't update other people posts",
+        code: 401,
+      };
+
+      await updatePost(req, null, next);
+
+      expect(next).toHaveBeenCalledWith(error);
+      expect(next.mock.calls[0][0]).toHaveProperty(
+        "message",
+        "Can't update other people posts"
+      );
+      expect(next.mock.calls[0][0]).toHaveProperty("code", 401);
+    });
+  });
 });
