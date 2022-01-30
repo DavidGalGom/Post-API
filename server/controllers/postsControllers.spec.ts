@@ -179,9 +179,15 @@ describe("Given a updatePost function", () => {
   describe("When it receives a wrong request", () => {
     test("Then it should return an error code 400 and message Bad update request", async () => {
       const idPost: number = 123456789;
+      const idOwner: number = 123;
+      const owner: number = 123;
       const req = {
         params: {
           idPost,
+          idOwner,
+        },
+        body: {
+          owner,
         },
       };
       const next = jest.fn();
@@ -199,12 +205,18 @@ describe("Given a updatePost function", () => {
     });
   });
 
-  describe("When it receives a wrong id", () => {
+  describe("When it receives a wrong post id", () => {
     test("Then it should return an error code 404 and message Post not found", async () => {
       const idPost: number = 1;
+      const idOwner: number = 123;
+      const owner: number = 123;
       const req = {
         params: {
           idPost,
+          idOwner,
+        },
+        body: {
+          owner,
         },
       };
       const next = jest.fn();
@@ -225,9 +237,15 @@ describe("Given a updatePost function", () => {
   describe("When it receives an id and a correct params body", () => {
     test("Then it should update the post with the new data", async () => {
       const idPost: number = 123456789;
+      const idOwner: number = 123;
+      const owner: number = 123;
       const req = {
         params: {
           idPost,
+          idOwner,
+        },
+        body: {
+          owner,
         },
       };
       const res = mockResponse();
