@@ -10,7 +10,7 @@ const port: number | string =
 (async () => {
   try {
     await initializeServer(port);
-    await initializeMongoDBServer(process.env.MONGODB_STRING_PROD);
+    await initializeMongoDBServer(process.env.MONGODB_STRING);
   } catch (error) {
     process.exit(1);
   }
