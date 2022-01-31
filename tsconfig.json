@@ -6,7 +6,9 @@
     "lib": ["ES2015", "DOM"],
     "outDir": "./dist",
     "noEmitOnError": true,
-    "sourceMap": true
+    "types": ["jest"],
+    "sourceMap": true,
+    "skipLibCheck": true
   },
   "include": ["./**/*.ts", ".eslintrc.js"],
   "exclude": ["./dist", "node_modules"]
