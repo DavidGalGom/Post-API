@@ -108,11 +108,11 @@ export const adminDeletePost = async (req, res, next) => {
 };
 
 export const getOrderedList = async (req, res, next) => {
-  const posts = await Post.find().populate({
-    path: "owner",
-    select: "userName",
-  });
   try {
+    const posts = await Post.find().populate({
+      path: "owner",
+      select: "userName",
+    });
     const orderedPosts = posts.sort(
       (date1, date2) => date2.releaseDate - date1.releaseDate
     );
