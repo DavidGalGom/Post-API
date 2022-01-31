@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import { generalErrorHandler, notFoundErrorHandler } from "./error";
 import IResponseTest from "../../interfaces/response";
 import IError from "../../interfaces/error";

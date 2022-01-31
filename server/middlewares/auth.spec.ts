@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import jwt from "jsonwebtoken";
 import auth from "./auth";
 import IResponseTest from "../../interfaces/response";
