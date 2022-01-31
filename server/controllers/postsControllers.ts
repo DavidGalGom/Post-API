@@ -106,3 +106,20 @@ export const adminDeletePost = async (req, res, next) => {
     next(error);
   }
 };
+
+export const getOrderedList = async (req, res, next) => {
+  const posts = await Post.find().populate({
+    path: "owner",
+    select: "userName",
+  });
+  try {
+    const orderedPosts = posts.sort(
+      (date1, date2) => date2.releaseDate - date1.releaseDate
+    );
+    res.json(orderedPosts);
+  } catch (error) {
+    error.message = "Can't find the posts";
+    error.code = 400;
+    next(error);
+  }
+};
