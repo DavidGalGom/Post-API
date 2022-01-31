@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 import User from "../../database/models/user";

@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import Post from "../../../database/models/post";
 import IResponseTest from "../../../interfaces/response";
 import { addPost } from "../postsControllers";

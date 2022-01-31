@@ -1,3 +1,4 @@
+import { expect } from "@jest/globals";
 import adminAuth from "./adminAuth";
 
 describe("Given a adminAuth middleware", () => {

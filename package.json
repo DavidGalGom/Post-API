@@ -6,9 +6,13 @@
   "scripts": {
     "start": "node dist/index.js",
     "start-dev": "nodemon -q .",
+    "start-cy": "node dist/indexForTests.js",
     "test": "npx jest",
     "test-w": "jest --watchAll",
     "test-cov": "jest --watchAll --collect-coverage",
+    "cy": "cypress run",
+    "cy-open": "cypress open",
+    "prepare": "husky install",
     "build": "tsc"
   },
   "repository": {
@@ -26,6 +30,7 @@
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
     "@babel/preset-typescript": "^7.16.0",
+    "@jest/globals": "^27.3.1",
     "@babel/types": "^7.16.0",
     "@types/debug": "^4.1.7",
     "@types/dotenv": "^8.2.0",
@@ -35,6 +40,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "babel-jest": "^27.3.1",
+    "cypress": "^9.3.1",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^16.0.0",
@@ -57,6 +63,7 @@
     "joi": "^17.4.2",
     "jsonwebtoken": "^8.5.1",
     "jwt-decode": "^3.1.2",
+    "local-cypress": "^1.2.3",
     "mongoose": "^6.0.13",
     "morgan": "^1.10.0",
     "ts-jest": "^27.0.7"
@@ -66,7 +73,9 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "dist"
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/",
+      "<rootDir>/cypress/"
     ]
   }
 }
