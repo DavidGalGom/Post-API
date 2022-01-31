@@ -9,6 +9,9 @@
     "test": "npx jest",
     "test-w": "jest --watchAll",
     "test-cov": "jest --watchAll --collect-coverage",
+    "cy": "cypress run",
+    "cy-open": "cypress open",
+    "prepare": "husky install",
     "build": "tsc"
   },
   "repository": {
@@ -35,6 +38,7 @@
     "@typescript-eslint/eslint-plugin": "^5.4.0",
     "@typescript-eslint/parser": "^5.4.0",
     "babel-jest": "^27.3.1",
+    "cypress": "^9.3.1",
     "eslint": "^8.3.0",
     "eslint-config-airbnb-base": "^15.0.0",
     "eslint-config-airbnb-typescript": "^16.0.0",
@@ -66,7 +70,9 @@
   },
   "jest": {
     "testPathIgnorePatterns": [
-      "dist"
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/",
+      "<rootDir>/cypress/"
     ]
   }
 }

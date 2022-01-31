@@ -58,7 +58,7 @@ export const loginUser = async (req, res, next) => {
           expiresIn: 24 * 60 * 60,
         }
       );
-      const loginToken: { ownerId: String; ownerToken: string } = {
+      const loginToken: { ownerId: string; ownerToken: string } = {
         ownerId: user.id,
         ownerToken: token,
       };
