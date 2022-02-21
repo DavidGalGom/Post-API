@@ -1,5 +1,5 @@
 {
-  "name": "serverless-post-api-",
+  "name": "post-api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",
@@ -17,15 +17,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DavidGalGom/Serverless-Post-API-.git"
+    "url": "git+https://github.com/DavidGalGom/Post-API.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DavidGalGom/Serverless-Post-API-/issues"
+    "url": "https://github.com/DavidGalGom/Post-API/issues"
   },
-  "homepage": "https://github.com/DavidGalGom/Serverless-Post-API-#readme",
+  "homepage": "https://github.com/DavidGalGom/Post-API#readme",
   "devDependencies": {
     "@babel/core": "^7.16.0",
     "@babel/preset-env": "^7.16.4",
