@@ -2,10 +2,6 @@
 
 This project is an API rest of post, is done with node.js + express using typescript, eslint, Mongoose as database, Jest for unit test and Cypress for integration tests.
 
-The project is deployed in Heroku: https://api-post-serverless.herokuapp.com ;
-
-Lately, using the AWS the project will be released serverless.
-
 I've added husky and github workflows to help me code better.
 
 There is an auth and isAdminAuth method using jsonwebtoken.
@@ -18,27 +14,21 @@ If you are interested and want to see more, there is a POSTMAN collection, and a
 
 ## The project have the following endpoints:
 
--https://api-post-serverless.herokuapp.com/users/register "POST"method: For register a new user.
+-url/users/register "POST"method: For register a new user.
 
--https://api-post-serverless.herokuapp.com/users/login "POST"method: For login registered users.
+-url/users/login "POST"method: For login registered users.
 
--https://api-post-serverless.herokuapp.com/posts "GET"method: Shows the list of posts.
+-url/posts "GET"method: Shows the list of posts.
 
--https://api-post-serverless.herokuapp.com/posts "POST"method: Create a new post, needed to be log and authenticated.
+-url/posts "POST"method: Create a new post, needed to be log and authenticated.
 
--https://api-post-serverless.herokuapp.com/posts/:idPost/:idOwner "DELETE"method: Delete a post, only if you are the owner of it.
+-url/posts/:idPost/:idOwner "DELETE"method: Delete a post, only if you are the owner of it.
 
--https://api-post-serverless.herokuapp.com/posts/:idPost/:idOwner "PUT"method: Updates a post, only if you are the owner of it.
+-url/posts/:idPost/:idOwner "PUT"method: Updates a post, only if you are the owner of it.
 
--https://api-post-serverless.herokuapp.com/posts/:idPost "DELETE"method : Delete any post, needed to be an admin.
+-url/posts/:idPost "DELETE"method : Delete any post, needed to be an admin.
 
 The body and the headers needed to use the endpoints are in the code.
-
-## There is a trello where you can check my progress doing the project
-
--Can see ordered all my features done, and all the incoming progress.
-
-https://trello.com/b/2pRycz3G/api-serverless
 
 ## Commands to try out the project
 
